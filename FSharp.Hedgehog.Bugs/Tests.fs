@@ -1,27 +1,11 @@
 module Tests
 
-open Xunit
-open Hedgehog
+open Hedgehog.Xunit
 
-[<Fact>]
-let ``Fails properly with Assert and without counterexample`` () =
-    property {
-        let! a = Gen.string (Range.linear 2 10) Gen.alphaNum
-        Assert.Equal(a, "")
-    } |> Property.check
+[<Property>]
+let ``Should generate System.Collections.Generic.List``(value: System.Collections.Generic.List<int>) =
+    value = value
     
-[<Fact>]
-let ``Crashes with Assert and counterexample`` () =
-    property {
-        let! a = Gen.string (Range.linear 2 10) Gen.alphaNum
-        counterexample a
-        Assert.Equal(a, "")
-    } |> Property.check
-    
-[<Fact>]
-let ``Crashes with exception and counterexample`` () =
-    property {
-        let! a = Gen.string (Range.linear 2 10) Gen.alphaNum
-        counterexample a
-        failwith "boo"
-    } |> Property.check
+[<Property>]
+let ``Should generate ResizeArray``(value: ResizeArray<int>) =
+    value = value
